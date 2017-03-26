@@ -134,6 +134,7 @@ vnoremap . :norm.<CR>
 " Leader shortcuts
 
 nnoremap <leader><Up> ]s
+nnoremap <leader><Down> [s
 nnoremap <leader>W :%s/\s\+$//<cr>:let @/=''<CR>
 nnoremap <leader>a :Ack
 nnoremap <leader>ft Vatzf
