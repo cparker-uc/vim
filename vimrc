@@ -14,6 +14,7 @@ Plugin 'jistr/vim-nerdtree-tabs'
 Plugin 'kien/ctrlp.vim'
 Plugin 'tpope/vim-fugitive'
 Plugin 'Lokaltog/powerline' , {'rtp': 'powerline/bindings/vim/'}
+Plugin 'vim-latex/vim-latex'
 Bundle 'LucHermitte/lh-vim-lib'
 Bundle 'LucHermitte/vim-build-tools-wrapper'
 Bundle 'Valloric/YouCompleteMe'
@@ -31,12 +32,21 @@ let g:ycm_autoclose_preview_window_after_completion=1
 " ignore .pyc files in NERDTree
 let NERDTreeIgnore=['\.pyc$', '\~$']
 
+" vim-latex settings
+filetype plugin on
+set grepprg=grep\ -nH\ $*
+filetype indent on
+let g:tex_flavor='latex'
+
+" Custom Headers
+source ~/.vim/headers/headers.vim
 
 " Basic Settings
 
 filetype plugin indent on
 filetype off
 syntax on
+let g:Powerline_symbols = 'fancy'
 
 set clipboard=unnamed
 set foldmethod=indent
@@ -63,7 +73,6 @@ set ruler
 set backspace=indent,eol,start
 set laststatus=2
 set number
-set relativenumber
 set noundofile
 nnoremap / /\v
 vnoremap / /\v
@@ -93,14 +102,14 @@ set background=dark
 
 let python_highlight_all=1
 
-au BufNewFile,BufRead *.py
-    \ set tabstop=4
-    \ set softtabstop=4
-    \ set shiftwidth=4
-    \ set textwidth=79
-    \ set expandtab
-    \ set autoindent
-    \ set fileformat=unix
+" au BufNewFile,BufRead *.py
+" \ set tabstop=4
+" \ set softtabstop=4
+" \ set shiftwidth=4
+" \ set textwidth=79
+" \ set expandtab
+" \ set autoindent
+" \ set fileformat=unix
 
 py << EOF
 import os
@@ -113,7 +122,8 @@ EOF
 
 " All languages settings
 
-au BufRead,BufNewFile *.py,*.pyw,*.c,*.h match BadWhitespace /\s\+$/
+" should match bad whitespace in python and c, currently not working
+" au BufRead,BufNewFile *.py,*.pyw,*.c,*.h match BadWhitespace /\s\+$/
 
 " Mappings and shortcuts
 
@@ -135,8 +145,9 @@ vnoremap . :norm.<CR>
 
 nnoremap <leader><Up> ]s
 nnoremap <leader><Down> [s
-nnoremap <leader>W :%s/\s\+$//<cr>:let @/=''<CR>
-nnoremap <leader>a :Ack
+nnoremap <leader>W :%s/\S\zs\s\+$//<cr>:let @/=''<CR>
+" not sure what this one does, tells me :Ack is not an editor command
+" nnoremap <leader>a :Ack
 nnoremap <leader>ft Vatzf
 nnoremap <leader>S ?{<CR>jV/^\s*\}?$<CR>k:sort<CR>:noh<CR>
 nnoremap <leader>q gqip
@@ -146,19 +157,22 @@ nnoremap <leader>w <C-w>v<C-w>l
 nnoremap <leader>j VipJ
 nnoremap <leader>q gqip
 nnoremap <leader>f 1z=
-nnoremap <leader>u :!git pull website master && git commit -am 'Standard commit.' && git push website master<CR><CR>
+" nnoremap <leader>u :!git pull website master && git commit -am 'Standard commit.' && git push website master<CR><CR>
 nnoremap <leader>p :!git commit -am 'Standard commit.' && git push origin master<CR><CR>
+nnoremap <leader>pb :!git symbolic-ref --short HEAD \| pbcopy && git commit -am 'Standard commit to current branch.' && git push origin $(pbpaste)<CR><CR>
+" nnoremap <leader>p :set ft=python<CR>
 nnoremap <leader>d :read !date<CR>
 nnoremap <leader>r :!!<CR>
-nnoremap <leader>m :norm @a<CR>
+nnoremap <leader>a :norm @a<CR>
+nnoremap <leader>b :norm @b<CR>
 nnoremap <leader>l :CtrlP<CR>
 nnoremap <leader>nt :NERDTree<CR>
 nnoremap <leader>s :set spell!<CR>
 nnoremap <leader>n :set nonumber!<CR>
 nnoremap <leader>rn :set norelativenumber!<CR>
 nnoremap <leader>c :nohl<CR>
-nnoremap <leader>pa :set nopaste!<CR>
-nnoremap <leader>h :set ft=HTML<CR><CR>
+" nnoremap <leader>pa :set nopaste!<CR>
+" nnoremap <leader>h :set ft=HTML<CR><CR>
 nnoremap <leader><Left> :tabprevious<CR>
 nnoremap <leader><Right> :tabnext<CR>
 nnoremap <leader>i gt
@@ -174,4 +188,3 @@ nnoremap <C-J> <C-W><C-J>
 nnoremap <C-K> <C-W><C-K>
 nnoremap <C-L> <C-W><C-L>
 nnoremap <C-H> <C-W><C-H>
-
