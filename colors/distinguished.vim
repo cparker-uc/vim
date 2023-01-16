@@ -67,7 +67,7 @@ call s:ColorDictParser({
 	\ , 'WarningMsg'                  : [    202,     '',           'bold',      'ff5f00',        '',           'bold']
 	\ , 'ErrorMsg'                    : [    196,     '',           'bold',      'ff0000',        '',           'bold']
 	\
-	\ , 'Comment'                     : [    243,    233,               '',      '767676',  '121212',               '']
+	\ , 'Comment'                     : [    243,    233,               '',      '7676DD',  '121212',               '']
 	\ , 'vimCommentTitleLeader'       : [    250,    233,               '',      'bcbcbc',  '121212',               '']
 	\ , 'vimCommentTitle'             : [    250,    233,               '',      'bcbcbc',  '121212',               '']
 	\ , 'vimCommentString'            : [    245,    233,               '',      '8a8a8a',  '121212',               '']
@@ -185,4 +185,4 @@ hi MBEChanged              guifg=#CD5907 guibg=fg
 hi MBEVisibleNormal        guifg=#5DC2D6 guibg=fg
 hi MBEVisibleChanged       guifg=#F1266F guibg=fg
 hi MBEVisibleActiveNormal  guifg=#A6DB29 guibg=fg
-hi MBEVisibleActiveChanged guifg=#F1266F guibg=fgs
+hi MBEVisibleActiveChanged guifg=#F1266F guibg=fg

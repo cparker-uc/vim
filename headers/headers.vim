@@ -1,5 +1,3 @@
-" Automatic headers for various file types
-
 function WriteHeader(ext,commentchar,uselicense)
 	" Format for created and last modified dates
 	let datefmt = "%a %b %d, %Y | %I:%M%P %Z"
@@ -24,9 +22,9 @@ function WriteHeader(ext,commentchar,uselicense)
 		exe 'au bufnewfile *.'.a:ext.' exe "norm 26GA'.a:commentchar.'"'
 	endif
 	" Replace file name
-	exe 'au bufnewfile *.'.a:ext.' exe "1,6g/File Name:.*/s//File Name: " .expand("%")'
+	exe 'au bufnewfile *.'.a:ext.' exe "1,15g/File Name:.*/s//File Name: " .expand("%")'
 	" Write date created
-	exe 'au bufnewfile *.'.a:ext.' exe "1,6g/Created:.*/s//Created: " .strftime("'.datefmt.'")'
+	exe 'au bufnewfile *.'.a:ext.' exe "1,15g/Created:.*/s//Created: " .strftime("'.datefmt.'")'
 	" Move cursor to description field
 	exe 'au bufnewfile *.'.a:ext.' exe "norm 2GA "'
 	" Enter insert mode upon opening file - ! for append mode
@@ -36,7 +34,7 @@ function WriteHeader(ext,commentchar,uselicense)
 	" Remembder cursor location
 	exe 'au Bufwritepre,filewritepre *.'.a:ext.' exe "normal ma"'
 	" Replace date
-	exe 'au Bufwritepre,filewritepre *.'.a:ext.' exe "1," . 6 . "g/Last Modified:.*/s/Last Modified:.*/Last Modified: " .strftime("'.datefmt.'")'
+	exe 'au Bufwritepre,filewritepre *.'.a:ext.' exe "1,15g/Last Modified:.*/s/Last Modified:.*/Last Modified: " .strftime("'.datefmt.'")'
 	" Return cursor to original location
 	exe 'au bufwritepost,filewritepost *.'.a:ext.' exe "normal `a"'
 endfunction
